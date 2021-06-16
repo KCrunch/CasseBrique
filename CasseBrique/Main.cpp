@@ -23,7 +23,10 @@ int pos_brx = 50;
 int pos_bry = 10;
 int Larg_br = 50;
 int Haut_br = 15;
+int dir;
 
+float stepx = 2;
+float stepy = -2;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Not Tetris");
@@ -31,8 +34,9 @@ int main()
 
 	sf::CircleShape cercle(rayon_b);
 	cercle.setFillColor(sf::Color::Red); // White Black Red Blue Green Cyan Magenta Yellow
-	cercle.setPosition(500/2,350/2);
+	cercle.setPosition(pos_bx, pos_by);
 	cercle.setOrigin(10, 0);
+
 
 	sf::RectangleShape raquette({100,10});
 	raquette.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
@@ -41,6 +45,10 @@ int main()
 	sf::RectangleShape brique({ 50,15 });
 	brique.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
 	brique.setPosition(50, 10);
+
+	sf::RectangleShape brique2({ 50,15 });
+	brique2.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
+	brique2.setPosition(140, 10);
 
 	Font font;
 	if (!font.loadFromFile("Fonts/04B_30__.ttf")) // pour vérifier si y'a bien la police
@@ -65,7 +73,7 @@ int main()
 
 	while (1) //win lose
 	{
-		window.clear();
+			
 		while (start == false)	// écran de démarrage
 		{
 
@@ -78,9 +86,9 @@ int main()
 				break;
 			
 		}
-		
-		pos_by = pos_by - 2;
-		cercle.setPosition(pos_bx, pos_by);
+		dir = 3;
+		//if (pos_bx
+		//pos_by = pos_by - 2;
 		raquette.setPosition(pos_rx, pos_ry);
 		brique.setPosition(pos_brx, pos_bry);
 
@@ -95,28 +103,63 @@ int main()
 			break;
 		if (cercle.getPosition().x >= 490)
 		{
-			pos_bx = pos_bx - 2;
-			pos_by = pos_by - 2;
+			if (dir == 1) // Direction Sud-Est
+			{
+				stepx = stepx + 2;
+				stepy = stepy + 2;
+				dir = 2;
+			}
 
+			if (dir == 1) // Direction Nord-Est
+			{
+				stepx = stepx + 2;
+				stepy = stepy - 2;
+				dir = 4;
+			}
 		}
 
 		if (cercle.getPosition().x <= 10)
 		{
-			pos_bx = pos_bx + 2;
-			pos_by = pos_by - 2;
+			if (dir == 4) // Direction Sud-Ouest
+			{
+				stepx = stepx - 2;
+				stepy = stepy + 2;
+				dir = 1;
+			}
+
+			if (dir == 4) // Direction Nord-Ouest
+			{
+				stepx = stepx - 2;
+				stepy = stepy - 2;
+				dir = 3;
+			}
 		}
 
 		if (cercle.getPosition().y <= 0)
 		{
-			pos_bx = pos_bx + 2;
-			pos_by = pos_by + 2;
+
+			if (dir == 3) // Direction Nord-Est
+			{
+				stepx = stepx + 2;
+				stepy = stepy - 2;
+				dir = 1;
+			}
+
+			if (dir == 4) // Direction Nord-Ouest
+			{
+				stepx = stepx - 2;
+				stepy = stepy - 2;
+				dir = 2;
+			}
 		}
 
 		//if (pos_by >= 500)
 		//	start = false;
-
+		cercle.move(stepx, stepy);
+		window.clear();
 		window.draw(cercle);
 		window.draw(brique);
+		window.draw(brique2);
 		window.draw(raquette);
 		window.display();
 

@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <windows.h> 
 
@@ -11,4 +11,4 @@ private:
 	int pos_ry = 380;
 	int Larg_r = 100;
 	int Haut_r = 10;
-};
+};*/

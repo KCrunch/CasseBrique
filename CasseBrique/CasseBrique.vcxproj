@@ -148,6 +148,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Balle.cpp" />
     <ClCompile Include="Raquette.cpp" />
+    <ClCompile Include="Brique.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
