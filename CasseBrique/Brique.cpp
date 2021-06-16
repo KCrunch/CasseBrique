@@ -7,6 +7,7 @@ using namespace sf;
 class Brique
 {
 private:
+	RectangleShape *tab;
 	int pos_brx = 50;
 	int pos_bry = 10;
 	int Larg_br = 50;

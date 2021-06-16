@@ -25,6 +25,7 @@ int Larg_br = 50;
 int Haut_br = 15;
 int dir;
 
+
 float stepx = 2;
 float stepy = -2;
 int main()
@@ -70,7 +71,7 @@ int main()
 	text2.setString("Press escape to LEAVE");
 	text2.setPosition(10, screen_height/2);
 	
-
+	dir = 3;
 	while (1) //win lose
 	{
 			
@@ -84,9 +85,8 @@ int main()
 				start = true;
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				break;
-			
 		}
-		dir = 3;
+		
 		//if (pos_bx
 		//pos_by = pos_by - 2;
 		raquette.setPosition(pos_rx, pos_ry);
@@ -101,36 +101,39 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 			break;
+
 		if (cercle.getPosition().x >= 490)
 		{
 			if (dir == 1) // Direction Sud-Est
 			{
-				stepx = stepx + 2;
-				stepy = stepy + 2;
+				stepx = - 2;
+				stepy = 2;
 				dir = 2;
 			}
 
-			if (dir == 1) // Direction Nord-Est
+			if (dir == 3) // Direction Nord-Est
 			{
-				stepx = stepx + 2;
-				stepy = stepy - 2;
+				stepx =  - 2;
+				stepy =  - 2;
 				dir = 4;
 			}
+
+
 		}
 
 		if (cercle.getPosition().x <= 10)
 		{
-			if (dir == 4) // Direction Sud-Ouest
+			if (dir == 2) // Direction Sud-Ouest
 			{
-				stepx = stepx - 2;
-				stepy = stepy + 2;
+				stepx = 2;
+				stepy = 2;
 				dir = 1;
 			}
 
 			if (dir == 4) // Direction Nord-Ouest
 			{
-				stepx = stepx - 2;
-				stepy = stepy - 2;
+				stepx =  + 2;
+				stepy =  - 2;
 				dir = 3;
 			}
 		}
@@ -140,21 +143,38 @@ int main()
 
 			if (dir == 3) // Direction Nord-Est
 			{
-				stepx = stepx + 2;
-				stepy = stepy - 2;
+				stepx = 2;
+				stepy = 2;
 				dir = 1;
 			}
 
 			if (dir == 4) // Direction Nord-Ouest
 			{
-				stepx = stepx - 2;
-				stepy = stepy - 2;
+				stepx = - 2;
+				stepy = 2;
 				dir = 2;
 			}
 		}
 
-		//if (pos_by >= 500)
-		//	start = false;
+		
+
+		if (cercle.getPosition().x >= pos_rx && cercle.getPosition().x <= pos_rx + Larg_r && cercle.getPosition().y  == pos_ry - Haut_r - rayon_b)
+		{
+			if (dir == 1) // Direction Sud-Est
+			{
+				stepx = 2;
+				stepy = -2;
+				dir = 3;
+			}
+
+			if (dir == 2) // Direction Sud-Ouest
+			{
+				stepx = -2;
+				stepy = -2;
+				dir = 4;
+			}
+		}
+
 		cercle.move(stepx, stepy);
 		window.clear();
 		window.draw(cercle);
