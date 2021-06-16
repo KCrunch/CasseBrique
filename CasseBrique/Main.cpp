@@ -77,7 +77,6 @@ int main()
 			
 		while (start == false)	// écran de démarrage
 		{
-
 			window.display();
 			window.draw(text);
 			window.draw(text2);
@@ -87,8 +86,6 @@ int main()
 				break;
 		}
 		
-		//if (pos_bx
-		//pos_by = pos_by - 2;
 		raquette.setPosition(pos_rx, pos_ry);
 		brique.setPosition(pos_brx, pos_bry);
 
@@ -173,6 +170,12 @@ int main()
 				stepy = -2;
 				dir = 4;
 			}
+		}
+
+		if (cercle.getPosition().y >= 500)
+		{
+			window.clear();
+			start = false;
 		}
 
 		cercle.move(stepx, stepy);
