@@ -24,6 +24,7 @@ int pos_bry = 10;
 int Larg_br = 50;
 int Haut_br = 15;
 int dir;
+bool restart = false;
 
 
 float stepx = 2;
@@ -32,16 +33,15 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Not Tetris");
 
-
 	sf::CircleShape cercle(rayon_b);
 	cercle.setFillColor(sf::Color::Red); // White Black Red Blue Green Cyan Magenta Yellow
 	cercle.setPosition(pos_bx, pos_by);
 	cercle.setOrigin(10, 0);
 
 
-	sf::RectangleShape raquette({100,10});
+	sf::RectangleShape raquette({ 100,10 });
 	raquette.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
-	raquette.setPosition(150,380);
+	raquette.setPosition(150, 380);
 
 	sf::RectangleShape brique({ 50,15 });
 	brique.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
@@ -53,7 +53,7 @@ int main()
 
 	Font font;
 	if (!font.loadFromFile("Fonts/04B_30__.ttf")) // pour vérifier si y'a bien la police
-		std::cout << "COULD NOT LOAD FONT!" ;
+		std::cout << "COULD NOT LOAD FONT!";
 
 	Text text;		// Pour générer un texte
 	text.setFont(font);
@@ -69,19 +69,23 @@ int main()
 	text2.setFillColor(Color::Red);
 	text2.setStyle(Text::Bold);
 	text2.setString("Press escape to LEAVE");
-	text2.setPosition(10, screen_height/2);
-	
+	text2.setPosition(10, screen_height / 2);
+
 	dir = 3;
+	
 	while (1) //win lose
 	{
-			
 		while (start == false)	// écran de démarrage
 		{
 			window.display();
+			window.clear();
 			window.draw(text);
 			window.draw(text2);
 			if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)))
+			{
 				start = true;
+				lose = false;
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				break;
 		}
@@ -114,8 +118,6 @@ int main()
 				stepy =  - 2;
 				dir = 4;
 			}
-
-
 		}
 
 		if (cercle.getPosition().x <= 10)
@@ -172,10 +174,17 @@ int main()
 			}
 		}
 
-		if (cercle.getPosition().y >= 500)
+		if (cercle.getPosition().y >= 500 && lose == false)
 		{
-			window.clear();
 			start = false;
+			restart = true;
+			lose = true;
+			cercle.setPosition(pos_bx, pos_by);
+			pos_rx = 210;
+			pos_ry = 480;
+			stepx = 2;
+			stepy = -2;
+			dir = 3;
 		}
 
 		cercle.move(stepx, stepy);
