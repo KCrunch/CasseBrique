@@ -8,11 +8,11 @@ class Brique
 {
 private:
 	RectangleShape *tab;
-	int pos_brx = 50;
-	int pos_bry = 10;
+	int *pos_brx;
+	int *pos_bry;
 	int Larg_br = 50;
 	int Haut_br = 15;
-	bool visibiliteBr[];
+	bool visibleBr[];
 
 
 public:
@@ -23,4 +23,9 @@ public:
 	void majBrique();
 
 	
-};*/
+};
+
+int Brique::getLargBr() const
+{
+	return Larg_br;
+}*/

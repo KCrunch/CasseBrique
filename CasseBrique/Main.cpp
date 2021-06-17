@@ -4,6 +4,9 @@
 
 using namespace sf;
 
+const int Longueur = 8;
+
+const int Ligne = 3;
 bool start = false;
 bool win = false;
 bool lose = false;
@@ -12,25 +15,43 @@ int murGauche = 0;
 int murHaut = 500;
 int screen_width = 500;
 int screen_height = 500;
-int pos_bx = 250;
-int pos_by = 450;
-int rayon_b = 10;
 int pos_rx = 210;
 int pos_ry = 480;
 int Larg_r = 100;
 int Haut_r = 10;
-int pos_brx = 50;
-int pos_bry = 10;
-int Larg_br = 50;
-int Haut_br = 15;
+int pos_bx = 200;
+int pos_by = 350;
+int rayon_b = 10;
 int dir;
-bool restart = false;
-
-
 float stepx = 2;
 float stepy = -2;
+int pos_brx;
+int pos_bry;
+int Larg_br = 50;
+int Haut_br = 15;
+bool visibleBr[Longueur * Ligne];
+RectangleShape tab[Longueur * Ligne];
+int j = 0;
+
+
+
 int main()
 {
+	
+	
+	for (int i = 0; i < Ligne;i++)
+	{
+		
+		for (int g = 0;g < Longueur;j++,g++)
+		{
+			sf::RectangleShape brique({ 50,15 });
+			brique.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
+			brique.setPosition(50 + g * 53, 10 +i * 18);
+			tab[j] = brique;
+		}
+
+	}
+
 	sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "Not Tetris");
 
 	sf::CircleShape cercle(rayon_b);
@@ -43,13 +64,13 @@ int main()
 	raquette.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
 	raquette.setPosition(150, 380);
 
-	sf::RectangleShape brique({ 50,15 });
+	/*sf::RectangleShape brique({ 50,15 });
 	brique.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
-	brique.setPosition(50, 10);
+	brique.setPosition(50, 10);*/
 
-	sf::RectangleShape brique2({ 50,15 });
-	brique2.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
-	brique2.setPosition(140, 10);
+	//sf::RectangleShape brique2({ 50,15 });
+	//brique2.setFillColor(sf::Color::Green); // White Black Red Blue Green Cyan Magenta Yellow
+	//brique2.setPosition(140, 10);
 
 	Font font;
 	if (!font.loadFromFile("Fonts/04B_30__.ttf")) // pour vérifier si y'a bien la police
@@ -75,6 +96,7 @@ int main()
 	
 	while (1) //win lose
 	{
+
 		while (start == false)	// écran de démarrage
 		{
 			window.display();
@@ -91,7 +113,7 @@ int main()
 		}
 		
 		raquette.setPosition(pos_rx, pos_ry);
-		brique.setPosition(pos_brx, pos_bry);
+		//brique.setPosition(pos_brx, pos_bry);
 
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -157,7 +179,7 @@ int main()
 
 		
 
-		if (cercle.getPosition().x >= pos_rx && cercle.getPosition().x <= pos_rx + Larg_r && cercle.getPosition().y  == pos_ry - Haut_r - rayon_b)
+		if (cercle.getPosition().x >= pos_rx - rayon_b && cercle.getPosition().x <= pos_rx + Larg_r + rayon_b && cercle.getPosition().y  == pos_ry - Haut_r - rayon_b)
 		{
 			if (dir == 1) // Direction Sud-Est
 			{
@@ -177,7 +199,6 @@ int main()
 		if (cercle.getPosition().y >= 500 && lose == false)
 		{
 			start = false;
-			restart = true;
 			lose = true;
 			cercle.setPosition(pos_bx, pos_by);
 			pos_rx = 210;
@@ -187,14 +208,28 @@ int main()
 			dir = 3;
 		}
 
+		for (int i = 0; i < Longueur * Ligne; i++)
+		{
+			if (visibleBr[i] == true)
+			{
+
+			}
+		}
+
 		cercle.move(stepx, stepy);
 		window.clear();
+		for (int i = 0;i < Longueur * Ligne;i++)
+		{
+			RectangleShape brique = tab[i];
+			//std::cout << brique.getPosition().x << " " << brique.getPosition().y << std::endl;
+			window.draw(tab[i]);
+		}
 		window.draw(cercle);
-		window.draw(brique);
-		window.draw(brique2);
+		//window.draw(brique);
+		//window.draw(brique2);
 		window.draw(raquette);
+		
 		window.display();
-
 		Sleep(10);
 	}
 	return 0;

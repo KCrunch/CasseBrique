@@ -11,6 +11,8 @@ private:
 	int pos_by = 350;
 	int rayon_b = 10;
 	int dir;
+	float stepx = 2;
+	float stepy = -2;
 
 public:
 
