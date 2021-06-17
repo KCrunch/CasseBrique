@@ -5,7 +5,6 @@
 using namespace sf;
 
 const int Longueur = 8;
-
 const int Ligne = 3;
 bool start = false;
 bool win = false;
@@ -15,20 +14,25 @@ int murGauche = 0;
 int murHaut = 500;
 int screen_width = 500;
 int screen_height = 500;
+
 int pos_rx = 210;
 int pos_ry = 480;
 int Larg_r = 100;
 int Haut_r = 10;
+
 int pos_bx = 200;
 int pos_by = 350;
 int rayon_b = 10;
 int dir;
+
 float stepx = 2;
 float stepy = -2;
+
 int pos_brx;
 int pos_bry;
 int Larg_br = 50;
 int Haut_br = 15;
+
 bool visibleBr[Longueur * Ligne];
 RectangleShape tab[Longueur * Ligne];
 int j = 0;
